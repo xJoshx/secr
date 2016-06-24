@@ -10,19 +10,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_deprecated_1 = require('@angular/router-deprecated');
+var form_component_1 = require('../form/form.component');
 var HelloComponent = (function () {
     function HelloComponent(router) {
         this.router = router;
         this.title = 'Secr Security Assignment';
+        this.showForm = true;
     }
+    HelloComponent.prototype.toggleForm = function () {
+        this.showForm = !this.showForm;
+        console.log(this.showForm);
+    };
     HelloComponent.prototype.goToForm = function () {
         this.router.navigate(['Form']);
     };
     HelloComponent = __decorate([
         core_1.Component({
             selector: 'hello',
-            template: "\n    <h1 class='title'>{{title}}</h1>\n    <a id=\"navigation\" (click)=\"goToForm()\" class=\"btn btn-default centered\">Go to form</a>\n  ",
-            styles: ["\n    .title {\n      text-align: center;\n      margin-bottom: 30px;\n    }\n    .centered {\n      display: block;\n      margin: 0 auto;\n    }\n  "]
+            directives: [form_component_1.FormComponent],
+            template: "\n  <div class=\"wrapper\">\n    <h1 class=\"title\">{{title}}</h1>\n    <a id=\"navigation\" (click)=\"goToForm()\" class=\"btn btn-default centered button-go-to-form\">Go to form</a>\n    <a id='show-form' (click)=\"toggleForm()\" class=\"btn btn-default centered button-show-form\">Show me the form!!!1</a>\n    <div class=\"wrapper-form\">\n      <form-component [hidden]=\"showForm\"></form-component>\n    </div>\n  </div>\n  ",
+            styles: ["\n    .wrapper {\n      width: 100%;\n      margin: 0 auto;\n    }\n    .title {\n      text-align: center;\n      margin-bottom: 30px;\n    }\n    .centered {\n      display: block;\n      margin: 0 auto;\n    }\n    .button-go-to-form {\n      margin-bottom: 30px;\n    }\n    .button-show-form {\n      margin-bottom: 30px;\n    }\n    .wrapper-form {\n      position: relative;\n    }\n    @media (min-width: 720px) {\n      .wrapper {\n        max-width: 75%;\n      }\n    }\n  "]
         }), 
         __metadata('design:paramtypes', [router_deprecated_1.Router])
     ], HelloComponent);

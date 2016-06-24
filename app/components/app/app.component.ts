@@ -13,8 +13,10 @@ import { FormComponent } from '../form/form.component';
   `,
   styles: [`
     .wrapper {
-      width: 50%;
+      width: 100%;
       margin: 0 auto;
+      position: relative;
+      height: 100%;
     }
   `],
   directives: [ROUTER_DIRECTIVES]
