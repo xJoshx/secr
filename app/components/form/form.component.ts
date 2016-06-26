@@ -3,11 +3,6 @@ import { CORE_DIRECTIVES, FormBuilder, Validators } from '@angular/common';
 import { DATEPICKER_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
 import { Validate } from '../../libs/validate/validate';
 
-function validateSite (c) {
-  const validate = new Validate();
-  return validate.FQND(c.value) || validate.IPV4(c.value) || validate.IPV6(c.value) ;
-}
-
 @Component({
   selector: 'form-component',
   directives: [DATEPICKER_DIRECTIVES],
@@ -16,27 +11,49 @@ function validateSite (c) {
 })
 
 export class FormComponent {
-  submitted = false;
+  formStatus = {
+    value: 'Hidden'
+  };
   form
   validate = new Validate();
 
   constructor (fb: FormBuilder) {
     this.form = fb.group({
       email: ["", this.validate.Email],
-      site: ["", validateSite],
-      currency: ["", Validators.required],
+      site: ["", this.validate.validateSite],
+      currency: "",
+      date: ""
     });
   }
-  // date: ["", Validators.required]
 
   setDropdownOption (option) {
-    this.form.value.currency = option;
+    this.form.controls['currency'].updateValue(option);
+  }
+
+  setDateOption (option) {
+    this.form.controls['date'].updateValue(option);
   }
 
   submitForm (event) {
     console.log('----------');
     console.log('STATUS: ');
     console.log(this.form.status);
+    console.log(`email: ${this.form.controls.email.value}`);
+    console.log(`site: ${this.form.controls.site.value}`);
+    console.log(`currency: ${this.form.controls.currency.value}`);
+    console.log(`date: ${this.form.controls.date.value}`);
     console.log('----------');
+
+    switch (this.form.status) {
+      case 'VALID':
+        this.formStatus.value = 'Success';
+        break;
+      default:
+        this.formStatus.value = 'Error';
+        break;
+
+    }
+
+    event.preventDefault();
   }
 }
