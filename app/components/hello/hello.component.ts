@@ -11,8 +11,9 @@ import { FormComponent } from '../form/form.component';
     <h1 class="title">{{title}}</h1>
     <a id="navigation" (click)="goToForm()" class="btn btn-default centered button-go-to-form">Go to form</a>
     <a id='show-form' (click)="toggleForm()" class="btn btn-default centered button-show-form">Show me the form!!!1</a>
-    <div class="wrapper-form">
-      <form-component [hidden]="showForm"></form-component>
+    <div class="wrapper-form show-popover" [hidden]="showForm">
+      <div class="arrow"></div>
+      <form-component></form-component>
     </div>
   </div>
   `,
@@ -37,6 +38,38 @@ import { FormComponent } from '../form/form.component';
     }
     .wrapper-form {
       position: relative;
+    }
+    .show-popover {
+      border-radius: 8px;
+      padding: 20px 20px 0;
+      box-sizing: border-box;
+      width: 100%;
+
+      -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+      box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+    }
+    .show-popover > .arrow {
+      top: -11px;
+      left: 50%;
+      margin-left: -11px;
+      border-top-width: 0;
+      border-bottom-color: #999;
+      border-bottom-color: rgba(0, 0, 0, .25);
+    }
+    .show-popover > .arrow {
+      border-width: 11px;
+    }
+    .show-popover > .arrow:after {
+      content: "";
+      border-width: 10px;
+    }
+    .show-popover > .arrow, .show-popover > .arrow:after {
+      position: absolute;
+      display: block;
+      width: 0;
+      height: 0;
+      border-color: transparent;
+      border-style: solid;
     }
     @media (min-width: 720px) {
       .wrapper {

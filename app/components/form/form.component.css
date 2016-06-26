@@ -1,0 +1,30 @@
+.wrapper {
+  width: 100%;
+  margin: 0 auto;
+}
+.dropdown {
+  margin-bottom: 30px;
+}
+.dropdown-item {
+  cursor: pointer;
+}
+.wrapper-datepicker {
+  display: inline-block;
+  min-height: 290px;
+  max-width: 100%;
+  margin-bottom: 30px;
+}
+.submit-form {
+  margin-bottom: 30px;
+}
+/*.ng-valid[required] {
+  border: 1px solid #42A948;
+}
+.ng-invalid {
+  border: 1px solid #a94442;
+}*/
+@media (min-width: 720px) {
+  .wrapper {
+    max-width: 75%;
+  }
+}

@@ -1,63 +1,42 @@
 import { Component } from '@angular/core';
-import { CORE_DIRECTIVES, FORM_DIRECTIVES } from '@angular/common';
+import { CORE_DIRECTIVES, FormBuilder, Validators } from '@angular/common';
 import { DATEPICKER_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
+import { Validate } from '../../libs/validate/validate';
+
+function validateSite (c) {
+  const validate = new Validate();
+  return validate.FQND(c.value) || validate.IPV4(c.value) || validate.IPV6(c.value) ;
+}
 
 @Component({
   selector: 'form-component',
   directives: [DATEPICKER_DIRECTIVES],
-  template: `
-  <div class="wrapper">
-    <form class="form">
-      <div class="form-group">
-        <label for="email">Email address</label>
-        <input type="email" class="form-control" id="email" placeholder="Email">
-      </div>
-      <br>
-      <div class="form-group">
-        <label for="site">Site</label>
-        <input type="text" class="form-control" id="site" placeholder="Site">
-      </div>
-      <br>
-      <div class="dropdown">
-        <button class="btn btn-default dropdown-toggle" type="button" id="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-          Dropdown Menu
-          <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item"><i class="glyphicon glyphicon-bitcoin"></i> Bitcoin</a></li>
-          <li><a class="dropdown-item"><i class="glyphicon glyphicon-euro"></i> Euro</a></li>
-          <li><a class="dropdown-item"><i class="glyphicon glyphicon-yen"></i> Yen</a></li>
-          <li><a class="dropdown-item"><i class="glyphicon glyphicon-ruble"></i> Ruble</a></li>
-        </ul>
-      </div>
-      <div style="wrapper-datepicker">
-        <datepicker [(ngModel)]="dt" [minDate]="minDate" [showWeeks]="true"></datepicker>
-      </div>
-    </form>
-  </div>
-  `,
-  styles: [`
-    .wrapper {
-      width: 100%;
-      margin: 0 auto;
-    }
-    .dropdown {
-      margin-bottom: 30px;
-    }
-    .dropdown-item {
-      cursor: pointer;
-    }
-    .wrapper-datepicker {
-      display: inline-block;
-      min-height: 290px;
-      max-width: 100%;
-    }
-    @media (min-width: 720px) {
-      .wrapper {
-        max-width: 50%;
-      }
-    }
-  `]
+  templateUrl: './app/components/form/form.component.html',
+  styleUrls: ['./app/components/form/form.component.css']
 })
 
-export class FormComponent { }
+export class FormComponent {
+  submitted = false;
+  form
+  validate = new Validate();
+
+  constructor (fb: FormBuilder) {
+    this.form = fb.group({
+      email: ["", this.validate.Email],
+      site: ["", validateSite],
+      currency: ["", Validators.required],
+    });
+  }
+  // date: ["", Validators.required]
+
+  setDropdownOption (option) {
+    this.form.value.currency = option;
+  }
+
+  submitForm (event) {
+    console.log('----------');
+    console.log('STATUS: ');
+    console.log(this.form.status);
+    console.log('----------');
+  }
+}
