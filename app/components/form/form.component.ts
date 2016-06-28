@@ -51,7 +51,6 @@ export class FormComponent {
       default:
         this.formStatus.value = 'Error';
         break;
-
     }
 
     event.preventDefault();
