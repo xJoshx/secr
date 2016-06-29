@@ -19,5 +19,5 @@ describe('Form Component', () => {
     document.getElementById('navigation').click()
     expect(window.location.pathname).toBe('/form');
   });
-
 });
+

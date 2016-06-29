@@ -30,15 +30,15 @@
     <button type="submit" class="btn btn-default submit-form" (click)="submitted=true">Send</button>
   </form>
 
-  <div class="alert alert-danger" role="alert" [hidden]="formStatus.value !== 'Error'">
+  <div class="alert alert-danger" role="alert" [hidden]="formStatus.status !== 'Error'">
     <span class="glyphicon glyphicon-exclamation-sign"></span>
     <span class="sr-only">Error:</span>
-    Enter a valid email address
+    {{formStatus.message}}
   </div>
 
-  <div class="alert alert-success" role="alert" [hidden]="formStatus.value !== 'Success'">
+  <div class="alert alert-success" role="alert" [hidden]="formStatus.status !== 'Success'">
     <span class="glyphicon glyphicon-exclamation-sign"></span>
     <span class="sr-only">Success:</span>
-    The form has been submitted correctly!
+    {{formStatus.message}}
   </div>
 </div>

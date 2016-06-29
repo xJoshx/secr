@@ -12,7 +12,8 @@ import { Validate } from '../../libs/validate/validate';
 
 export class FormComponent {
   formStatus = {
-    value: 'Hidden'
+    status: 'Hidden',
+    message: ''
   };
   form
   validate = new Validate();
@@ -20,7 +21,7 @@ export class FormComponent {
   constructor (fb: FormBuilder) {
     this.form = fb.group({
       email: ["", this.validate.Email],
-      site: ["", this.validate.validateSite],
+      site: ["", this.validate.Site],
       currency: "",
       date: ""
     });
@@ -44,14 +45,7 @@ export class FormComponent {
     console.log(`date: ${this.form.controls.date.value}`);
     console.log('----------');
 
-    switch (this.form.status) {
-      case 'VALID':
-        this.formStatus.value = 'Success';
-        break;
-      default:
-        this.formStatus.value = 'Error';
-        break;
-    }
+    this.formStatus = this.validate.Form(this.form);
 
     event.preventDefault();
   }

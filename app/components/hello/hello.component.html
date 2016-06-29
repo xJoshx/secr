@@ -1,0 +1,9 @@
+<div class="wrapper">
+  <h1 class="title">{{title}}</h1>
+  <a id="navigation" (click)="goToForm()" class="btn btn-default centered button-go-to-form">Go to form</a>
+  <a id='show-form' (click)="toggleForm()" class="btn btn-default centered button-show-form">Show me the form!!!1</a>
+  <div class="wrapper-form show-popover" [hidden]="showForm">
+    <div class="arrow"></div>
+    <form-component></form-component>
+  </div>
+</div>

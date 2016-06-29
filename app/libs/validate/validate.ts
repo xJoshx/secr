@@ -1,12 +1,11 @@
-function Email (c) {
+function Email (value) {
   var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return re.test(c.value);
+  return re.test(value);
 }
 
-function Currency (c) {
+function Currency (value) {
   let currencyIsCorrect = false;
-  console.log(`Value set to: ${c.value}`)
-  switch (c.value) {
+  switch (value) {
     case 'Bitcoin':
       currencyIsCorrect = true;
       break;
@@ -24,13 +23,11 @@ function Currency (c) {
       break;
   }
 
-  console.log(`Currency is correct? ${currencyIsCorrect}`);
-
   return currencyIsCorrect;
 }
 
 function FQND (value) {
-  var re = /^(?=.{1,254}$)((?=[a-z0-9-]{1,63}\.)(xn--+)?[a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,63}$/i;
+  var re = /^((?:(?:(?:\w[\.\-\+]?)*)\w)+)((?:(?:(?:\w[\.\-\+]?){0,62})\w)+)\.(\w{2,6})$/;
   return re.test(value);
 }
 
@@ -44,38 +41,74 @@ function IPV6 (value) {
   return re.test(value);
 }
 
-function validateSite (c) {
-  console.log('------------------');
-  console.log('Validators: ');
-  console.log(`FQND: ${FQND(c.value)}`);
-  console.log(`IPV4: ${IPV4(c.value)}`);
-  console.log(`IPV6: ${IPV6(c.value)}`);
-  console.log('------------------');
-  return FQND(c.value) || IPV4(c.value) || IPV6(c.value) ;
+function Site (value) {
+  // console.log('------------------');
+  // console.log('Validators: ');
+  // console.log(`FQND: ${FQND(value)}`);
+  // console.log(`IPV4: ${IPV4(value)}`);
+  // console.log(`IPV6: ${IPV6(value)}`);
+  // console.log('------------------');
+  return FQND(value) || IPV4(value) || IPV6(value) ;
+}
+
+function Form (form) {
+  const emailIsValid = Email(form.controls.email.value);
+  const siteIsValid = Site(form.controls.site.value);
+  let result = {
+    status: '',
+    message: ''
+  };
+
+  if (emailIsValid && siteIsValid) {
+    result.status = 'Success'; 
+    result.message = 'The form has been submitted correctly!';
+
+    return result;
+  } else {
+    result.status = 'Error';
+    result.message = 'The form presents the following errors: ';
+
+    if (!emailIsValid) {
+      result.message += 'email is incorrect';
+    }
+
+    if (!siteIsValid) {
+      if (!emailIsValid) {
+        result.message += ', ';
+      }
+       result.message += 'site is incorrect';
+ 
+    }
+    return result;
+  }
 }
 
 export class Validate {
-    Email (c) {
-      return Email(c);
-    }
+  Email (element) {
+    return Email(element.value);
+  }
 
-    Currency (c) {
-      return Currency(c);
-    }
+  Currency (element) {
+    return Currency(element.value);
+  }
 
-    FQND (value) {
-      return FQND(value);
-    }
+  FQND (element) {
+    return FQND(element.value);
+  }
 
-    IPV4 (value) {
-      return IPV4(value);
-    }
+  IPV4 (element) {
+    return IPV4(element.value);
+  }
 
-    IPV6 (value) {
-      return IPV6(value);
-    }
+  IPV6 (element) {
+    return IPV6(element.value);
+  }
 
-    validateSite (c) {
-      return validateSite(c);
-    }
+  Site (element) {
+    return Site(element.value);
+  }
+
+  Form (element) {
+    return Form(element);
+  }
 }
