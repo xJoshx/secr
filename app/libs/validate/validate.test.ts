@@ -104,27 +104,27 @@ describe('Testing FQND function', function() {
 
 describe('Testing full validation function', function() {
   it('Should return true with regular FQND', function() {
-    var testCaseFull = validate.validateSite("tumblr.com");
+    var testCaseFull = validate.Site("tumblr.com");
     expect(testCaseFull).to.be.true;
   });
   it('Should return true with regular IPV4', function() {
-    var testCaseFull = validate.validateSite("192.168.1.1");
+    var testCaseFull = validate.Site("192.168.1.1");
     expect(testCaseFull).to.be.true;
   });
   it('Should return true with regular IPV6', function() {
-    var testCaseFull = validate.validateSite("FE80:0000:0000:0000:0202:B3FF:FE1E:8329");
+    var testCaseFull = validate.Site("FE80:0000:0000:0000:0202:B3FF:FE1E:8329");
     expect(testCaseFull).to.be.true;
   });  
   it('Should return false with just the domain', function() {
-    var testCaseFull = validate.validateSite(".com");
+    var testCaseFull = validate.Site(".com");
     expect(testCaseFull).to.be.false;
   });
   it('Should return false with incorrect IPV4', function() {
-    var testCaseFull = validate.validateSite("192.168.1.1/12.34");
+    var testCaseFull = validate.Site("192.168.1.1/12.34");
     expect(testCaseFull).to.be.false;
   });
   it('Should return false with incorrect IPV6', function() {
-    var testCaseFull = validate.validateSite("::1111:2222:3333:4444:5555:6666::");
+    var testCaseFull = validate.Site("::1111:2222:3333:4444:5555:6666::");
     expect(testCaseFull).to.be.false;
   });  
 });
