@@ -20,21 +20,18 @@ var gulp = require('gulp'),
   });
 
   gulp.task('test', ['compile-typescript'], function (done) {
-    return gulp.src(['./app/libs/validate/validate.test.js'], {read: false})
+    return gulp.src(['./release/libs/validate/validate.test.js'], {read: false})
                     //  './app/components/app/app.test.js'
                     //  './app/components/hello/hello.test.js'
                     //  './app/components/form/form.test.js'
         .pipe(mocha({ui: 'bdd', reporter: 'nyan'}));
   });
 
-  gulp.task('compile-typescript', function () {
-      return gulp.src('./src/**/*.ts')
-        .pipe(ts({
-            noImplicitAny: true,
-            out: 'bundle.js'
-        }))
-        .pipe(gulp.dest('./.temp'));
-  });
+ gulp.task('compile-typescript', function () {
+    var tsProject = ts.createProject('tsconfig.json');
+    var tsResult = tsProject.src().pipe(ts(tsProject));
+    return tsResult.js.pipe(gulp.dest('release'));
+});
 
   gulp.task('watch', function() {
       return gulp.watch('src/**/*.ts', ['build']);
