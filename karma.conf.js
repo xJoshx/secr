@@ -1,8 +1,8 @@
 module.exports = function(config) {
   config.set({
     basePath: './app/components',
-    frameworks: ['jasmine'],
-    plugins: [require('karma-requirejs'), 'karma-chrome-launcher', 'karma-jasmine'],
+    frameworks: ['mocha'],
+    plugins: [require('karma-requirejs'), 'karma-chrome-launcher', 'karma-mocha'],
     browsers: ['Chrome'],
     files: [
       '../../node_modules/requirejs/require.js',

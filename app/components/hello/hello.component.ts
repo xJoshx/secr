@@ -11,8 +11,7 @@ import { FormComponent } from '../form/form.component';
 })
 
 export class HelloComponent {
-  constructor(
-    private router: Router) {}
+  constructor(private router: Router) {}
 
   title = 'Secr Security Assignment';
   showForm = true;

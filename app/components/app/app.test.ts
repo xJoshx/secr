@@ -2,6 +2,9 @@
 // import 'reflect-metadata';
 import { AppComponent } from './app.component';
 
+const chai = require('chai');
+const expect = chai.expect;
+
 describe('App', () => {
 
   beforeEach(function() {

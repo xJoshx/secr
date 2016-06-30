@@ -1,5 +1,6 @@
 var gulp = require('gulp'),
     // ts = require('gulp-typescript'),
+    mocha = require('gulp-mocha'),
     jasmine = require('gulp-jasmine'),
     Server = require('karma').Server;
     // clean = require('gulp-clean'),
@@ -44,4 +45,14 @@ var gulp = require('gulp'),
       return gulp.watch('src/**/*.ts', ['build']);
   });
 
-  gulp.task('default', ['watch'], function () {});
+  gulp.task('default', function () {
+    return gulp.src(['./app/libs/validate/validate.test.js',
+                     './app/components/form/form.test.js'], {read: false})
+                    //  './app/components/app/app.test.js'
+                    //  './app/components/hello/hello.test.js'
+                    //  './app/components/form/form.test.js'
+        // gulp-mocha needs filepaths so you can't have any plugins before it
+        .pipe(mocha({ui: 'bdd', reporter: 'nyan'}));
+  });
+
+  // gulp.task('default', ['watch'], function () {});
